@@ -7,8 +7,7 @@ def load_training_data():
     @return a string containing the training data
     """
     multilingual = load_dataset("allenai/c4", "multilingual", streaming=True)
-    # Prints the first training example's text
-    print(next(iter(multilingual['train']['text'])))
+
     data = [] # List of strings
     for i, example in enumerate(multilingual['train']['text']):
         data.append(example)

@@ -3,18 +3,20 @@ import os
 import string
 import random
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
+import data_utils
+import ngram
 
 
 class MyModel:
     """
     This is a starter model to get you started. Feel free to modify this file.
     """
+    def __init__(self):
+        self.model = None
 
     @classmethod
     def load_training_data(cls):
-        # your code here
-        # this particular model doesn't train
-        return []
+        return data_utils.load_training_data()
 
     @classmethod
     def load_test_data(cls, fname):
@@ -32,19 +34,19 @@ class MyModel:
             for p in preds:
                 f.write('{}\n'.format(p))
 
-    def run_train(self, data, work_dir):
-        # your code here
-        pass
+    def run_train(self, train_text, work_dir):
+        # Save ngram model to use later
+        ngram_model = ngram.UnigramModel(train_text)
+        ngram_model.fit()
+        self.model = ngram_model
 
-    def run_pred(self, data):
-        # your code here
-        preds = []
-        all_chars = string.ascii_letters
-        for inp in data:
-            # this model just predicts a random character each time
-            top_guesses = [random.choice(all_chars) for _ in range(3)]
-            preds.append(''.join(top_guesses))
-        return preds
+    def run_pred(self, test_data):
+        """
+        Docstring for run_pred
+        
+        :param test_data: a list of strings, each string being the prefix to predict next character for
+        """
+        return self.model.predict(test_data)
 
     def save(self, work_dir):
         # your code here
