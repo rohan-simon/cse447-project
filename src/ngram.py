@@ -24,7 +24,7 @@ class UnigramModel:
     # Select the top three most probable characters to finish to prefix
     preds = []
     for _ in prefixes:
-      sorted_chars = sorted(self.probs, key=self.probs.get, reverse=True)
+      sorted_chars = np.random.choice(list(self.probs.keys()), size=len(self.probs), replace=False, p=list(self.probs.values())) 
       top_chars = sorted_chars[:3]
       preds.append(''.join(top_chars))
     return preds
