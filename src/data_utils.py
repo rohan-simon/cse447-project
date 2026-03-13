@@ -12,7 +12,7 @@ def load_training_data():
     for i, example in enumerate(multilingual['train']['text']):
         data.append(example)
         # Limiting to 1000 for now to avoid grabbing whole dataset, should be plenty
-        if i >= 1000:
+        if i >= 10000:
             break
     return ' '.join(data)
 

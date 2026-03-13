@@ -5,6 +5,7 @@ import random
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 import data_utils
 import ngram
+import ngram_interpolation
 
 
 class MyModel:
@@ -36,7 +37,7 @@ class MyModel:
 
     def run_train(self, train_text, work_dir):
         # Save ngram model to use later
-        ngram_model = ngram.UnigramModel(train_text)
+        ngram_model = ngram_interpolation.InterpolatedNGramModel(train_text, max_order=8)
         ngram_model.fit()
         self.model = ngram_model
 
